@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: thinkstep-test-online_users
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/onlineusers
+    username: root
+    password: password
+
+server:
+  port: 8080
+  error.whitelabel.enabled: true
+
