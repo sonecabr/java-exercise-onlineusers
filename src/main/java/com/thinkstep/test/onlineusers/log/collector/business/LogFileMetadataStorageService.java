@@ -20,26 +20,5 @@ public class LogFileMetadataStorageService {
     @Autowired
     private LogFileMetadataRepository repository;
 
-    public Boolean isFileChanged(InputStream file, String folder, String fileName) throws LogFileProcessException {
-        LogFileMetadata meta = repository.findByFileName(folder, fileName);
-        if(meta != null) {
-            if(meta.getLastUpdate().isAfter(Instant.now()) || meta.getLastUpdate().equals(Instant.now())){
-                return false;
-            }
 
-            if(isMD5Changed(file, meta.getMd5())){
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private Boolean isMD5Changed(InputStream is, String referenceMd5) throws LogFileProcessException {
-        try {
-            return !referenceMd5.equals(DigestUtils.md5DigestAsHex(is));
-        } catch (IOException e) {
-            throw new LogFileProcessException(e);
-        }
-    }
 }

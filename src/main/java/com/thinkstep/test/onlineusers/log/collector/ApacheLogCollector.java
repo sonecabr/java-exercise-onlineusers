@@ -1,6 +1,7 @@
 package com.thinkstep.test.onlineusers.log.collector;
 
 import com.thinkstep.test.onlineusers.log.collector.business.LogFileMetadataStorageService;
+import com.thinkstep.test.onlineusers.log.processor.ApacheCombinedLogProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +40,7 @@ public class ApacheLogCollector implements LogCollectorFromFile {
     private Long logInitialOffset;
 
     @Autowired
-    private LogFileMetadataStorageService logFileMetadataStorageService;
+    private ApacheCombinedLogProcessor apacheCombinedLogProcessor;
 
 
     @Autowired
@@ -71,7 +72,7 @@ public class ApacheLogCollector implements LogCollectorFromFile {
         List<String> lines = Collections.emptyList();
 
         try (InputStream is = Files.newInputStream(Paths.get(String.format("%s/%s", folder, fileName)), StandardOpenOption.READ)) {
-            if(logFileMetadataStorageService.isFileChanged(is, folder, fileName)){
+            if(apacheCombinedLogProcessor.isFileChanged(is, folder, fileName)){
                 InputStreamReader isReader = new InputStreamReader(is, encoding);
                 BufferedReader bReader = new BufferedReader(isReader);
                 String line;
