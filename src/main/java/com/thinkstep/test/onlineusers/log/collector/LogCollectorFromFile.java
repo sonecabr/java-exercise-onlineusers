@@ -5,5 +5,5 @@ import java.util.List;
 @FunctionalInterface
 public interface LogCollectorFromFile {
 
-    List<String> readFileContent(String path, String encoding, Long offset) throws LogFileProcessException;
+    List<String> readFileContent(String folder, String fileName, String encoding, Long offset) throws LogFileProcessException;
 }

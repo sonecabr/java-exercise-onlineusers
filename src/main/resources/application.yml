@@ -11,7 +11,7 @@ spring:
 
 logs:
   apache:
-    folder: "/Users/aldrocha/others/workspaces/thinkstep/online-users"
+    folder: "/Users/aldrocha/others/workspaces/thinkstep/apache-logs"
     encoding: "UTF-8"
     initialOffset: 0
     scheduller:

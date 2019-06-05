@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+
 @RestController
 @RequestMapping("/api")
 @Slf4j
@@ -17,7 +19,7 @@ public class DefaultController {
         return OnlineUserMetric
                 .builder()
                 .id(1l)
-                .timestamp(System.currentTimeMillis())
+                .timestamp(Instant.now())
                 .build();
     }
 
