@@ -9,7 +9,24 @@ spring:
     username: root
     password: password
 
+logs:
+  apache:
+    folder: "/Users/aldrocha/others/workspaces/thinkstep/online-users"
+    encoding: "UTF-8"
+    initialOffset: 0
+    scheduller:
+      cronexp: "* * * * * *"
+
+reactor:
+  pool:
+    size: 10
+
 server:
   port: 8080
   error.whitelabel.enabled: true
+
+logging:
+  level:
+    com:
+     thinkstep: INFO
 

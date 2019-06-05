@@ -7,5 +7,5 @@ import java.util.concurrent.Future;
 @FunctionalInterface
 public interface LogProcessor {
 
-    Future<LogProcessorResult> submit(LogLine format, String line);
+    LogLine submit(LogLine format, String line);
 }
