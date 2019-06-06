@@ -1,6 +1,7 @@
 package com.thinkstep.test.onlineusers.log.collector;
 
 import com.thinkstep.test.onlineusers.log.collector.business.LogFileMetadataStorageService;
+import com.thinkstep.test.onlineusers.log.collector.model.LogFileMetadata;
 import com.thinkstep.test.onlineusers.log.processor.ApacheCombinedLogProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.nio.file.*;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -55,7 +58,10 @@ public class ApacheLogCollector implements LogCollectorFromFile {
             List<String> files = scanForLogFiles(logFolder, "log");
             files.stream().forEach(fileName -> {
                 try {
-                    readFileContent(logFolder, fileName, logEncoding, logInitialOffset);
+                    List<String> lines = readFileContent(logFolder, fileName, logEncoding, logInitialOffset);
+                    if(lines != null && lines.size() > 0) {
+                        apacheCombinedLogProcessor.submit(lines);
+                    }
                 } catch (LogFileProcessException e) {
                     log.error(String.format("Error reading log file %s", fileName), e);
                 }
@@ -69,20 +75,25 @@ public class ApacheLogCollector implements LogCollectorFromFile {
     public List<String> readFileContent(String folder, String fileName, String encoding, Long offset) throws LogFileProcessException { //FIXME - should use stream
         log.warn(String.format("Reading content from file %s/%s starting on line %s", folder, fileName, offset));
         //Resource resource = resourceLoader.getResource(String.format("classpath:%s", path));
-        List<String> lines = Collections.emptyList();
+        List<String> lines = new ArrayList<>();
 
         try (InputStream is = Files.newInputStream(Paths.get(String.format("%s/%s", folder, fileName)), StandardOpenOption.READ)) {
-            if(apacheCombinedLogProcessor.isFileChanged(is, folder, fileName)){
-                InputStreamReader isReader = new InputStreamReader(is, encoding);
-                BufferedReader bReader = new BufferedReader(isReader);
-                String line;
-                while ((line = bReader.readLine()) != null) {
-                    //TODO - to implement
+
+            InputStreamReader isReader = new InputStreamReader(is, encoding);
+            BufferedReader bReader = new BufferedReader(isReader);
+            String line;
+            Long count = 0l;
+            LogFileMetadata lineRef = apacheCombinedLogProcessor.getFileMetadata(folder, fileName);
+            while ((line = bReader.readLine()) != null) {
+                if(count > (lineRef.getLastProcessedLine() > 0 ? lineRef.getLastProcessedLine() : -1 )) {
                     lines.add(line);
                 }
-            } else {
-                log.warn(String.format("File %s/%s has no new lines, skiping...", folder, fileName));
+                count++;
             }
+            lineRef.setLastProcessedLine(count);
+            lineRef.setLastUpdate(Instant.now());
+            apacheCombinedLogProcessor.save(lineRef);
+
 
         } catch (UnsupportedEncodingException e) {
             throw new LogFileProcessException(e);

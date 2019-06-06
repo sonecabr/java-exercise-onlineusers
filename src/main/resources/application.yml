@@ -8,6 +8,12 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/onlineusers
     username: root
     password: password
+  cache:
+    cache-names: logs, consolidations
+    jcache:
+      config=classpath:ehcache:
+        xml: ehcache.xml
+
 
 logs:
   apache:
@@ -15,7 +21,8 @@ logs:
     encoding: "UTF-8"
     initialOffset: 0
     scheduller:
-      cronexp: "* * * * * *"
+      cronexp: "* */1 * * * *"
+    regex: "^(\\S+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(\\S+)\\s?(\\S+)?\\s?(\\S+)?\" (\\d{3}|-) (\\d+|-)\\s?\"?([^\"]*)\"?\\s?\"?([^\"]*)?\"?$"
 
 reactor:
   pool:

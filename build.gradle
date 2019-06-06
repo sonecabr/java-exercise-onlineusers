@@ -32,7 +32,13 @@ dependencies {
 
     compile 'mysql:mysql-connector-java'
 
-    compileOnly 'org.projectlombok:lombok:1.18.8'
+    compile 'javax.cache:cache-api:1.1.0'
+
+    compile 'org.ehcache:ehcache:3.6.2'
+
+    compile 'commons-io:commons-io:2.6'
+
+   compileOnly 'org.projectlombok:lombok:1.18.8'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 

@@ -1,13 +1,20 @@
-package com.thinkstep.test.onlineusers.log;
+package com.thinkstep.test.onlineusers.log.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
+import javax.persistence.*;
+import java.io.UnsupportedEncodingException;
 import java.time.Instant;
+import java.util.Base64;
+import java.util.Optional;
 
 @Value
 @Builder
+@Entity(name = "log_history")
 public class ApacheCombinedLogLine implements LogLine {
 
     /**
@@ -20,7 +27,12 @@ public class ApacheCombinedLogLine implements LogLine {
      * %>s is the status code sent from the server to the client (200, 404 etc.)
      * %b is the size of the response to the client (in bytes)
      */
-    private static final String format = "%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-agent}i\\\"\" combined";
+    @Transient
+    public static final String format = "%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-agent}i\\\"\" combined";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String remoteHost;
 
@@ -42,6 +54,20 @@ public class ApacheCombinedLogLine implements LogLine {
 
     private String userAgent;
 
+    private Instant ingestionTime;
+
+
+    public String getEncodedUserAgent() {
+        return Optional.ofNullable(this.userAgent)
+                .map(us -> {
+                    try {
+                        return Base64.getEncoder().encodeToString(us.getBytes("utf-8"));
+                    } catch (UnsupportedEncodingException e) {
+                        return "invalid-user-agent";
+                    }
+                })
+                .orElse("");
+    }
 
 
 }

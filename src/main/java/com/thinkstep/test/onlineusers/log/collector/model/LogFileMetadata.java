@@ -1,8 +1,10 @@
 package com.thinkstep.test.onlineusers.log.collector.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,8 @@ import java.time.Instant;
 @Data
 @Entity(name = "log_file_metadata")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LogFileMetadata {
 
     @Id
