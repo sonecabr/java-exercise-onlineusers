@@ -34,7 +34,7 @@ public class ApacheCombinedLogProcessorTest {
                         .remoteHost("128.33.254.99")
                         .identity("-")
                         .userName("-")
-                        .userAgent("\"Mozilla/5.0 (Macintosh; PPC Mac OS X 10_9_4 rv:6.0) Gecko/1952-26-05 Firefox/35.0\"")
+                        .userAgent("Mozilla/5.0 (Macintosh; PPC Mac OS X 10_9_4 rv:6.0) Gecko/1952-26-05 Firefox/35.0")
                         .build();
 
         LogLine ref2 =
@@ -43,7 +43,7 @@ public class ApacheCombinedLogProcessorTest {
                         .remoteHost("202.109.81.118")
                         .identity("-")
                         .userName("powlowski8588")
-                        .userAgent("\"Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/1932-11-09 Firefox/36.0\"")
+                        .userAgent("Mozilla/5.0 (X11; Linux x86_64; rv:5.0) Gecko/1932-11-09 Firefox/36.0")
                         .build();
 
         LogLine ref3 =
@@ -52,7 +52,7 @@ public class ApacheCombinedLogProcessorTest {
                         .remoteHost("117.98.11.82")
                         .identity("-")
                         .userName("thiel5026")
-                        .userAgent("\"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_7_10 rv:4.0) Gecko/1984-07-11 Firefox/35.0\"")
+                        .userAgent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_7_10 rv:4.0) Gecko/1984-07-11 Firefox/35.0")
                         .build();
         String[] logLineStr =
                 {
