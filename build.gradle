@@ -38,7 +38,7 @@ dependencies {
 
     compile 'commons-io:commons-io:2.6'
 
-    compile 'com.h2database:h2:1.4.199'
+    //compile 'com.h2database:h2:1.4.199'
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
 
