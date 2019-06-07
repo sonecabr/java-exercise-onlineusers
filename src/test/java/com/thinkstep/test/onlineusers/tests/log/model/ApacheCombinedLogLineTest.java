@@ -1,7 +1,8 @@
-package com.thinkstep.test.onlineusers.log.model;
+package com.thinkstep.test.onlineusers.tests.log.model;
 
 
 import com.thinkstep.test.onlineusers.base.TestSuite;
+import com.thinkstep.test.onlineusers.log.model.ApacheCombinedLogLine;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
