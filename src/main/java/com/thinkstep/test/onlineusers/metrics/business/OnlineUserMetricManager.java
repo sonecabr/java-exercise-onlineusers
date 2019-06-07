@@ -4,9 +4,6 @@ import com.thinkstep.test.onlineusers.log.business.LogLineStorageManager;
 import com.thinkstep.test.onlineusers.metrics.model.OnlineUserMetric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;

@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: thinkstep-test-online_users
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3307/onlineusers
+    username: test
+    password: test
+  cache:
+    cache-names: logs, consolidations
+    jcache:
+      config=classpath:ehcache:
+        xml: ehcache.xml
+
+
+logs:
+  apache:
+    folder: classpath:apache-logs
+    encoding: "UTF-8"
+    initialOffset: 0
+    scheduller:
+      cronexp: "* */1 * * * *"
+    regex: "^(\\S+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(\\S+)\\s?(\\S+)?\\s?(\\S+)?\" (\\d{3}|-) (\\d+|-)\\s?\"?([^\"]*)\"?\\s?\"?([^\"]*)?\"?$"
+
+reactor:
+  pool:
+    size: 10
+
+server:
+  port: 8080
+  error.whitelabel.enabled: true
+
+logging:
+  level:
+    com:
+     thinkstep: INFO
+

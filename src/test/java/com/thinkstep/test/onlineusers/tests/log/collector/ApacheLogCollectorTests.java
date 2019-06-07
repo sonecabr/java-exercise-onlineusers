@@ -1,5 +1,6 @@
 package com.thinkstep.test.onlineusers.tests.log.collector;
 
+import com.thinkstep.test.onlineusers.base.TestSuite;
 import com.thinkstep.test.onlineusers.log.collector.ApacheLogCollector;
 import com.thinkstep.test.onlineusers.log.collector.LogFileProcessException;
 import org.junit.After;
@@ -21,11 +22,6 @@ import java.util.regex.Pattern;
 @SpringBootTest()
 public class ApacheLogCollectorTests {
 
-    @Before
-    public void setUp(){}
-
-    @After
-    public void tearDown(){}
 
     @Autowired
     private ApacheLogCollector apacheLogCollector;

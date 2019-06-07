@@ -1,7 +1,6 @@
 package com.thinkstep.test.onlineusers.metrics.model;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Value;
 
 import javax.persistence.Entity;
