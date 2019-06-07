@@ -1,5 +1,6 @@
 package com.thinkstep.test.onlineusers.tests.log.processor;
 
+import com.thinkstep.test.onlineusers.base.TestSuite;
 import com.thinkstep.test.onlineusers.log.model.ApacheCombinedLogLine;
 import com.thinkstep.test.onlineusers.log.model.LogLine;
 import com.thinkstep.test.onlineusers.log.processor.ApacheCombinedLogProcessor;
@@ -16,11 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest()
 public class ApacheCombinedLogProcessorTest {
 
-    @Before
-    public void setUp(){}
 
-    @After
-    public void tearDown(){}
 
     @Autowired
     private ApacheCombinedLogProcessor apacheCombinedLogProcessor;

@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.nio.file.*;
@@ -55,6 +56,9 @@ public class ApacheLogCollector implements LogCollectorFromFile {
     @Scheduled(cron = "${logs.apache.scheduller.cronexp}")
     private void run() {
         try {
+            if(logFolder.contains("classpath:")) {
+                logFolder = ResourceUtils.getFile(logFolder).getAbsolutePath();
+            }
             List<String> files = scanForLogFiles(logFolder, "log");
             files.stream().forEach(fileName -> {
                 try {
@@ -66,7 +70,7 @@ public class ApacheLogCollector implements LogCollectorFromFile {
                     log.error(String.format("Error reading log file %s", fileName), e);
                 }
             });
-        } catch (LogFileProcessException e) {
+        } catch (IOException | LogFileProcessException e) {
             log.error(String.format("Error reading log file list form apache on folder %s", logFolder), e);
         }
     }
@@ -74,7 +78,7 @@ public class ApacheLogCollector implements LogCollectorFromFile {
     @Override
     public List<String> readFileContent(String folder, String fileName, String encoding, Long offset) throws LogFileProcessException { //FIXME - should use stream
         log.warn(String.format("Reading content from file %s/%s starting on line %s", folder, fileName, offset));
-        //Resource resource = resourceLoader.getResource(String.format("classpath:%s", path));
+
         List<String> lines = new ArrayList<>();
 
         try (InputStream is = Files.newInputStream(Paths.get(String.format("%s/%s", folder, fileName)), StandardOpenOption.READ)) {

@@ -1,11 +1,9 @@
 package com.thinkstep.test.onlineusers.log.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Value;
 
+import lombok.Builder;
+import lombok.Value;
 import javax.persistence.*;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
