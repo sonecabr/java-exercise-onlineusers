@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  onlineusers:
+    depends_on:
+       - mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        buildno: 1
+    environment:
+      spring_application_jpa_hibernate_ddl: "create"
+      spring_application_jpa_datasource_url: jdbc:mysql://mysql:3306/onlineusers
+      spring_application_jpa_datasource_username: root
+      spring_application_jpa_datasource_password: password
+      logs_apache_folder: "/thinkstep/apache-logs"
+      logs_apache_scheduler_cronexp: "* */1 * * * *"
+      logs_level_com_thinkstep: "INFO"
+    ports:
+      - "8080:8080"
+
+  mysql:
+    image: mysql:5.7
+    environment: 
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: onlineusers
+      TZ: Europe/Berlin
+    ports:
+      - "3306:3306"
