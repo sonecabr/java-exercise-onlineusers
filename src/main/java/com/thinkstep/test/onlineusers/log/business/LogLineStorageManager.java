@@ -6,13 +6,14 @@ import com.thinkstep.test.onlineusers.log.repository.ApacheCombinedLogLineReposi
 import com.thinkstep.test.onlineusers.metrics.model.OnlineUserMetric;
 import com.thinkstep.test.onlineusers.metrics.repository.OnlineUserMetricRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 @Service
 public class LogLineStorageManager {

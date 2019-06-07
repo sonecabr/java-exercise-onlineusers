@@ -8,11 +8,18 @@ spring:
     url: jdbc:mysql://localhost:3306/onlineusers
     username: root
     password: password
+  datasourcelocal:
+    url: jdbc:h2:mem:onlineusers
+    username: root
+    password: password
   cache:
     cache-names: logs, consolidations
     jcache:
       config=classpath:ehcache:
         xml: ehcache.xml
+  h2:
+    console:
+      enabled=true:
 
 
 logs:

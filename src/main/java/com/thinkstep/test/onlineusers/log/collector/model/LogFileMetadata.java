@@ -17,6 +17,7 @@ import java.time.Instant;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class LogFileMetadata {
 
     @Id

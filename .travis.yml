@@ -1,8 +1,14 @@
 language: java
-install: true
+install: false
 
 jdk:
   - openjdk8
 
 script:
   - ./gradlew build
+
+addons:
+  mysql: "5.7"
+
+services:
+  - mysql

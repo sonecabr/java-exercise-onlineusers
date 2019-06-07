@@ -16,6 +16,8 @@ public class OnlineUserMetricManager {
     @Autowired
     private LogLineStorageManager logLineStorageManager;
 
+
+
     public OnlineUserMetric getMetrics() {
 
         return logLineStorageManager.consolidate(

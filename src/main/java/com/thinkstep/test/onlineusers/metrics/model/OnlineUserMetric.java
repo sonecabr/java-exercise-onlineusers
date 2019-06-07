@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.Instant;
 
-@Entity(name = "online_user_metric")
+@Entity
 @Value
 @Builder
 public class OnlineUserMetric {
