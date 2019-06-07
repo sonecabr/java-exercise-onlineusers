@@ -56,9 +56,7 @@ public class ApacheLogCollector implements LogCollectorFromFile {
     @Scheduled(cron = "${logs.apache.scheduller.cronexp}")
     private void run() {
         try {
-            if(logFolder.contains("classpath:")) {
-                logFolder = ResourceUtils.getFile(logFolder).getAbsolutePath();
-            }
+            logFolder = translatePath(logFolder);
             List<String> files = scanForLogFiles(logFolder, "log");
             files.stream().forEach(fileName -> {
                 try {
@@ -108,8 +106,15 @@ public class ApacheLogCollector implements LogCollectorFromFile {
         return Collections.unmodifiableList(lines);
     }
 
+    private String translatePath(String folderPath) throws IOException {
+        if(folderPath.contains("classpath:")) {
+            return ResourceUtils.getFile(folderPath).getAbsolutePath();
+        }
+        return folderPath;
+    }
     public List<String> scanForLogFiles(String folderPath, String ext) throws LogFileProcessException {
         try {
+            folderPath = translatePath(folderPath);
             final Path path = Paths.get(folderPath);
             //final PathMatcher filter = path.getFileSystem().getPathMatcher(String.format("^.*\\.(%s)$", ext));
             final Pattern extPattern = Pattern.compile(String.format("^.*\\.(%s)$", ext));
