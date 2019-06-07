@@ -17,6 +17,8 @@ import org.springframework.util.DigestUtils;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -44,6 +46,7 @@ public class ApacheCombinedLogProcessor implements LogProcessor {
 
     @Value("${logs.apache.regex}")
     private String logRegex;
+
 
     private final Scheduler logIngestionScheduler =
             Schedulers.newParallel(ApacheCombinedLogProcessor.class.getSimpleName().toLowerCase(), reactorPoolSize, true);
