@@ -1,4 +1,4 @@
-# ThinkStep - OnlineUsers
+# Exercise - OnlineUsers
 
 [![Build Status](https://travis-ci.org/sonecabr/thinkstep-onlineusers.svg?branch=master)](https://travis-ci.org/sonecabr/thinkstep-onlineusers)
 
